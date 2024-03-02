@@ -1,0 +1,73 @@
+{% extends "base.html" %} 
+{% load humanize %}
+{% load widget_tweaks %}
+{% block content %}
+<div class="p-5 mb-4 bg-light rounded-3">
+  <div class="banner header-text">
+    <div class="banner-item">
+      <div class="container text-center">
+        <div class="home-search p-5">
+          <h1 class="display-4 mb-4" id="showcase-info">
+            Find Your Next Great Job
+          </h1>
+          <div class="search">
+            <form action="" method="GET">
+              <div class="row mb-5">
+                <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
+                  <label class="sr-only">Keyword</label>
+                  {% render_field filter.form.title  class="form-control" placeholder="Keyword"   %}
+                </div>
+                <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
+                  <label class="sr-only">Location</label>
+                  {% render_field filter.form.state  class="form-select"   %}
+                </div>
+                <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
+                  <label class="sr-only">Choose Job Type</label>
+                  {% render_field filter.form.job_type  class="form-select"   %}
+                </div>
+                <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
+                  <label class="sr-only">Select Industry</label>
+                  {% render_field filter.form.industry  class="form-select"   %}
+                </div>
+               
+            
+                
+              </div>
+              <div class="col-6 col-sm-6 col-md-12 ">
+                <button
+                  type="submit"
+                  class="btn btn-secondary btn-lg btn-block text-white btn-search"
+                >
+                  <span class="">Search Job</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+  {% for job in filter.qs %}
+  <div class="col">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">{{job.title}}</h5>
+        <p class="card-text">Industry: {{job.industry}}</p>
+        <p class="card-text">job Type: {{job.job_type}}</p>
+        <p class="card-text">job Location: {{job.location}}, {{job.state}}</p>
+        <p class="card-text">{{job.salary|intcomma}}</p>
+      
+        <a class="btn btn-primary btn-sm" href="{%url 'job-details' job.pk  %}">View Details</a>
+      </div>
+      <div class="card-footer">
+        <small class="text-muted">Created {{job.timestamp|naturaltime}}</small>
+      </div>
+    </div>
+  </div>
+  {% endfor %} 
+</div>
+{% endblock content %}

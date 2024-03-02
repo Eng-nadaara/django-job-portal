@@ -1,0 +1,33 @@
+{% extends "users/base.html" %} {% load widget_tweaks %} {% block content %}
+
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <h4 class="card-title text-center">applicant</h4>
+
+        <div class="card-body">
+          <form method="POST" action="">
+            {% csrf_token %}
+             <div class="mb-3">
+              {% render_field form.email class="form-control"%}
+              <label for="" class="form-label">Email</label>
+            </div>
+            <div class="mb-3">
+              {% render_field form.password1 class="form-control"%}
+              <label for="" class="form-label">Enter password</label>
+            </div>
+            <div class="mb-3">
+              {% render_field form.password2 class="form-control"%}
+              <label for="" class="form-label">confirm password</label>
+            </div> 
+            <button type="submit" class="btn btn-primary">Sing up</button>
+            <hr class="my-4" />
+            <small class="text-mutted"
+              >Alredy have an account <a href="{% url 'login'%}" >Sign in</a></small
+            >
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
